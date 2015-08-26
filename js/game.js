@@ -15,5 +15,16 @@ startGame = function() {
         }
     }
 
+    shuffle(deck);
+
     renderCards(deck);
 };
+
+shuffle = function(a) {
+    for (var i = 0; i < a.length; i++) {
+        var j = i + Math.floor(Math.random() * (a.length - i));
+        var tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
+}
