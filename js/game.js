@@ -19,7 +19,7 @@ startGame = function() {
 
     shuffle(this.deck);
 
-    while (board.length < 12) {
+    while (this.board.length < 12) {
         this.board.push(this.deck.pop());
     }
 
@@ -28,6 +28,15 @@ startGame = function() {
 
 updateBoard = function() {
     for (var i = 0; i < this.board.length; i++) {
+        while (this.board[i] == null && this.board.length > 12) {
+            if (i >= 12) {
+                this.board.splice(i,1);
+            }
+            else {
+                this.board[i] = this.board.pop();
+            }
+        }
+
         if (this.board[i] == null) {
             if (this.deck.length > 0) {
                 this.board[i] = this.deck.pop();
@@ -37,6 +46,12 @@ updateBoard = function() {
                 i--;
             }
         }
+    }
+
+    while (!hasSet(this.board) && this.deck.length > 0) {
+        this.board.push(this.deck.pop());
+        this.board.push(this.deck.pop());
+        this.board.push(this.deck.pop());
     }
 
     renderCards(this.board);
@@ -75,6 +90,24 @@ shuffle = function(a) {
         a[i] = a[j];
         a[j] = tmp;
     }
+};
+
+hasSet = function(a) {
+    var b = new Array(3);
+    for (var i = 0; i < a.length; i++) {
+        b[0] = a[i];
+        for (var j = i+1; j < a.length; j++) {
+            b[1] = a[j];
+            for (var k = j+1; k < a.length; k++) {
+                b[2] = a[k];
+                if (isSet(b)) {
+                    console.log(i + " " + j + " " + k);
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 };
 
 isSet = function(a) {
