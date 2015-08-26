@@ -3,4 +3,6 @@ function Card(color, shape, fill, num) {
     this.shape = shape;
     this.fill  = fill;
     this.num   = num + 1;
+
+    this.active = false;
 }

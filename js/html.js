@@ -5,6 +5,9 @@ renderCard = function(card) {
     style.push("font-size:36px;");
     style.push("text-align:center;");
 
+    if (card.active)
+        style.push("background:yellow;");
+
     var ch = SHAPES[card.shape];
     var str = "";
     for (var i = 0; i < card.num; i++)
@@ -29,6 +32,7 @@ renderCards = function(cards) {
         var cell = document.createElement("td");
         cell.appendChild(renderCard(cards[i]));
         cell.setAttribute("style", "width:100px");
+        cell.setAttribute("onclick", "selectCard(" + i + ")");
         row.appendChild(cell);
 
         if (i % 3 == 2) {
@@ -40,5 +44,9 @@ renderCards = function(cards) {
     wrapper.appendChild(table);
 
     var g = document.querySelector(".grid");
+
+    while (g.firstChild)
+        g.removeChild(g.firstChild);
+
     g.appendChild(wrapper);
 };
