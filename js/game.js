@@ -1,5 +1,7 @@
+gameOver = false;
 window.onload = function() {
     startGame();
+    initTimer();
 }
 
 startGame = function() {
@@ -52,6 +54,11 @@ updateBoard = function() {
         this.board.push(this.deck.pop());
         this.board.push(this.deck.pop());
         this.board.push(this.deck.pop());
+    }
+
+    if (!hasSet(this.board)) {
+        gameOver = 1;
+        document.getElementById("game-over").innerHTML = "YOU WIN!!!";
     }
 
     renderCards(this.board);
